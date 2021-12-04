@@ -7,6 +7,9 @@ const FB_LOGIN_BUTTON_XPATH = '//*[@id="q36386411"]/div/div/div[1]/div/div[3]/sp
 const FB_EMAIL = process.env.FB_EMAIL;
 const FB_PASSWORD = process.env.FB_PASSWORD;
 const CARD_XPATH = '//*[@id="q-184954025"]/div/div[1]/div/main/div[1]/div/div/div[1]';
+const REVIEW_DIALOG_XPATH = '//*[@id="q36386411"]/div/div/div[2]/button[2]';
+const PROMOTE_DIALOG_XPATH = '//*[@id="q36386411"]/div/div/div[3]/button[2]';
+const MAX_LIKE_COUNT = 20;
 const LATITUDE = 43.0686645;
 const LONGITUDE = 141.3485666;
 
@@ -17,8 +20,12 @@ const LONGITUDE = 141.3485666;
 
   let likeCount = 0;
 
-  setInterval(async () => {
-    if(likeCount > 50) {
+  const timerId = setInterval(async () => {
+    clickXPath(page, REVIEW_DIALOG_XPATH);
+    clickXPath(page, PROMOTE_DIALOG_XPATH);
+
+    if(likeCount > MAX_LIKE_COUNT) {
+      clearInterval(timerId);
       await browser.close();
     }
 
