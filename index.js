@@ -7,15 +7,19 @@ const FB_LOGIN_BUTTON_XPATH = '//*[@id="q36386411"]/div/div/div[1]/div/div[3]/sp
 const FB_EMAIL = process.env.FB_EMAIL;
 const FB_PASSWORD = process.env.FB_PASSWORD;
 const CARD_XPATH = '//*[@id="q-184954025"]/div/div[1]/div/main/div[1]/div/div/div[1]';
+const PROFILE_NAME_XPATH = '//*[@id="q-184954025"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div/div[3]/div[3]/div/div[1]/div/div/span';
+const IMAGE_CLIP = { width: 360, height: 550, x: 580, y: 90 };
 const LATITUDE = 43.0686645;
 const LONGITUDE = 141.3485666;
 
 (async () => {
   const page = await initialize();
-
   await page.goto(TINDER_URL);
 
   await login(page);
+
+  await page.waitForXPath(PROFILE_NAME_XPATH);
+  await page.screenshot({ IMAGE_CLIP, path: 'image.png' })
 
 
 
@@ -25,10 +29,8 @@ const LONGITUDE = 141.3485666;
 
 async function clickXPath(page, xpath) {
   await page.waitForXPath(xpath);
-  const elemnts = await page.$x(xpath);
-  if(elemnts.length > 0) {
-    await elemnts[0].click();
-  }
+  const [elemnt] = await page.$x(xpath);
+  elemnt.click();
 }
 
 async function initialize() {
