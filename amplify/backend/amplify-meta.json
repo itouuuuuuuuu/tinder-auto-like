@@ -1,0 +1,148 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-tinderautolike-dev-43808-authRole",
+      "UnauthRoleArn": "arn:aws:iam::801332362964:role/amplify-tinderautolike-dev-43808-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::801332362964:role/amplify-tinderautolike-dev-43808-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-tinderautolike-dev-43808-deployment",
+      "UnauthRoleName": "amplify-tinderautolike-dev-43808-unauthRole",
+      "StackName": "amplify-tinderautolike-dev-43808",
+      "StackId": "arn:aws:cloudformation:us-east-1:801332362964:stack/amplify-tinderautolike-dev-43808/b87672f0-5539-11ec-bb7e-12d36a6aa1ef",
+      "AmplifyAppId": "d39uj525kuhj73"
+    }
+  },
+  "auth": {
+    "tinderautolike8e4ce5f3": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "loginMechanisms": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-tinderautolike-dev-43808-deployment/amplify-cfn-templates/auth/tinderautolike8e4ce5f3-cloudformation-template.yml",
+        "logicalId": "authtinderautolike8e4ce5f3"
+      },
+      "lastPushTimeStamp": "2021-12-04T19:47:09.930Z",
+      "output": {
+        "UserPoolId": "us-east-1_ZGsbe7FZC",
+        "AppClientIDWeb": "urodqt8utme5fe95nj1us26so",
+        "AppClientID": "l3tiumbh2aer3u0nevtd881hl",
+        "IdentityPoolId": "us-east-1:e8b7cf82-e662-4b6c-b9bf-b85cb9150944",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-1:801332362964:userpool/us-east-1_ZGsbe7FZC",
+        "IdentityPoolName": "tinderautolike8e4ce5f3_identitypool_8e4ce5f3__dev",
+        "UserPoolName": "tinderautolike8e4ce5f3_userpool_8e4ce5f3"
+      },
+      "lastPushDirHash": "HrsR3+pLUR2/BtS97a+BzRLQ5Ng="
+    }
+  },
+  "function": {
+    "RekognitionIndexFacesTriggere246acac": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "lastBuildTimeStamp": "2021-12-04T19:43:23.142Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2021-12-04T19:43:23.178Z",
+      "distZipFilename": "RekognitionIndexFacesTriggere246acac-6c597965584a47376878-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-tinderautolike-dev-43808-deployment",
+        "s3Key": "amplify-builds/RekognitionIndexFacesTriggere246acac-6c597965584a47376878-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-tinderautolike-dev-43808-deployment/amplify-cfn-templates/function/RekognitionIndexFacesTriggere246acac-cloudformation-template.json",
+        "logicalId": "functionRekognitionIndexFacesTriggere246acac"
+      },
+      "lastPushTimeStamp": "2021-12-04T19:47:09.930Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:801332362964:function:RekognitionIndexFacesTriggere246acac-dev",
+        "Name": "RekognitionIndexFacesTriggere246acac-dev",
+        "LambdaExecutionRole": "RekognitionIndexFacesTriggere246acacLambdaRolee246acac-dev"
+      },
+      "lastPushDirHash": "ZHajf4lZqZgZTtoxQgSfgJr3x44="
+    }
+  },
+  "storage": {
+    "s38c5ae76f": {
+      "providerPlugin": "awscloudformation",
+      "service": "S3",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "RekognitionIndexFacesTriggere246acac",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-tinderautolike-dev-43808-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
+        "logicalId": "storages38c5ae76f"
+      },
+      "lastPushTimeStamp": "2021-12-04T19:47:09.930Z",
+      "output": {
+        "BucketName": "tinderautolikea815d2045abe41fc92d5c7e78e28e093-dev",
+        "Region": "us-east-1"
+      },
+      "lastPushDirHash": "0eJVyUva8lbZkpReevhnkCOnA4o="
+    }
+  },
+  "predictions": {
+    "identifyEntities8f65f4a6": {
+      "providerPlugin": "awscloudformation",
+      "service": "Rekognition",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "RekognitionIndexFacesTriggere246acac",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "s38c5ae76f",
+          "attributes": [
+            "BucketName"
+          ]
+        }
+      ],
+      "identifyType": "identifyEntities",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-tinderautolike-dev-43808-deployment/amplify-cfn-templates/predictions/identifyEntities8f65f4a6-template.json",
+        "logicalId": "predictionsidentifyEntities8f65f4a6"
+      },
+      "lastPushTimeStamp": "2021-12-04T19:47:09.930Z",
+      "output": {
+        "maxEntities": "10",
+        "celebrityDetectionEnabled": "false",
+        "region": "us-east-1",
+        "collectionId": "identifyEntities8f65f4a6-dev"
+      },
+      "lastPushDirHash": "WVyjI93pBT62riZJUkTs6fUziLo="
+    }
+  }
+}

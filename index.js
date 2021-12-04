@@ -1,5 +1,13 @@
 require('dotenv').config();
+const Amplify = require('aws-amplify');
+const { Predictions } = require('aws-amplify');
+const { AmazonAIPredictionsProvider } = require('aws-amplify/predictions');
+const awsconfig = require('./aws-exports.js');
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+
+Amplify.configure(awsconfig);
+Amplify.addPluggable(new AmazonAIPredictionsProvider());
 
 const TINDER_URL = 'https://tinder.com/';
 const LOGIN_DIALOG_BUTTON_XPATH = '//*[@id="q-184954025"]/div/div[1]/div/main/div[1]/div/div/div/div/header/div/div[2]/div[2]/a';
@@ -8,7 +16,6 @@ const FB_EMAIL = process.env.FB_EMAIL;
 const FB_PASSWORD = process.env.FB_PASSWORD;
 const CARD_XPATH = '//*[@id="q-184954025"]/div/div[1]/div/main/div[1]/div/div/div[1]';
 const PROFILE_NAME_XPATH = '//*[@id="q-184954025"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div/div[3]/div[3]/div/div[1]/div/div/span';
-const IMAGE_CLIP = { width: 360, height: 550, x: 580, y: 90 };
 const LATITUDE = 43.0686645;
 const LONGITUDE = 141.3485666;
 
@@ -19,7 +26,26 @@ const LONGITUDE = 141.3485666;
   await login(page);
 
   await page.waitForXPath(PROFILE_NAME_XPATH);
-  await page.screenshot({ IMAGE_CLIP, path: 'image.png' })
+  const clip = { width: 360, height: 550, x: 580, y: 90 };
+  await page.waitForTimeout(1000);
+  await page.screenshot({ clip, path: 'tmp/ss.png' })
+
+  // const imageArrayBuffer = base64ToFile('./ss.png')
+  // console.log(imageArrayBuffer)
+
+  const file = fs.readFileSync('./tmp/ss.png');
+  let imageArrayBuffer = file.buffer
+  console.log(imageArrayBuffer)
+
+  Predictions.identify({
+    entities: {
+      source: {
+        bytes: imageArrayBuffer,
+      },
+    }
+  })
+  .then((response) => console.log({ response }))
+  .catch(err => console.log({ err }));
 
 
 
