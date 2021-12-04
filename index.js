@@ -12,15 +12,26 @@ const LONGITUDE = 141.3485666;
 
 (async () => {
   const page = await initialize();
-
   await page.goto(TINDER_URL);
-
   await login(page);
 
+  let likeCount = 0;
 
+  setInterval(async () => {
+    if(likeCount > 50) {
+      await browser.close();
+    }
+
+    const random = Math.random() * 3;
+    if(random > 1) {
+      await page.keyboard.press('ArrowRight');
+      likeCount++;
+    } else {
+      await page.keyboard.press('ArrowLeft');
+    }
+  }, 500);
 
 //   await browser.close();
-
 })();
 
 async function clickXPath(page, xpath) {
