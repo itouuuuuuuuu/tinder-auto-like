@@ -11,6 +11,7 @@ const CARD_XPATH = '//*[@id="q-184954025"]/div/div[1]/div/main/div[1]/div/div/di
 const REVIEW_DIALOG_XPATH = '//*[@id="q36386411"]/div/div/div[2]/button[2]';
 const FINISH_DIALOG_XPATH = '//*[@id="q36386411"]/div/div/div[3]/button[2]';
 const MAX_LIKE_COUNT = 20;
+const LIKE_INTERVAL = 1000; // ms
 
 // 札幌
 const LATITUDE = 43.0686645;
@@ -38,12 +39,13 @@ const LONGITUDE = 141.3485666;
 
     const random = Math.random() * 3;
     if(random > 1) {
-      await page.keyboard.press('ArrowRight');
+      // await page.keyboard.press('ArrowRight');
+      await page.keyboard.press('ArrowLeft');
       likeCount++;
     } else {
       await page.keyboard.press('ArrowLeft');
     }
-  }, 500);
+  }, LIKE_INTERVAL);
 
 //   await browser.close();
 })();
