@@ -17,8 +17,8 @@ const LATITUDE = 43.0686645;
 const LONGITUDE = 141.3485666;
 
 // ラスベガス
-const LATITUDE = 36.1251958;
-const LONGITUDE = -115.3150829;
+// const LATITUDE = 36.1251958;
+// const LONGITUDE = -115.3150829;
 
 (async () => {
   const page = await initialize();
